@@ -1,0 +1,599 @@
+{% extends 'base.html' %}
+    {% load static %}
+
+{% block title %}Sell Your Item - ShareSphere{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'css/buysell.css' %}" rel="stylesheet">
+<style>
+    .container {
+        max-width: 800px;
+        background: #f8f9fd;
+        background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+        border-radius: 40px;
+        padding: 25px 35px;
+        border: 5px solid rgb(255, 255, 255);
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
+        margin: 20px auto;
+    }
+
+    .form-section {
+        background: white;
+        border-radius: 30px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: #cff0ff 0px 10px 10px -5px;
+    }
+
+    .form-section:hover {
+        transform: translateY(-5px);
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 35px 35px -25px;
+    }
+
+    .form-section h3 {
+        text-align: center;
+        font-weight: 900;
+        font-size: 30px;
+        color: rgb(16, 137, 211);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Form Controls */
+    .form-control, .form-select {
+        width: 100%;
+        background: white;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 20px;
+        margin-top: 15px;
+        box-shadow: #cff0ff 0px 10px 10px -5px;
+        border-inline: 2px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+        outline: none;
+        border-inline: 2px solid #12b1d1;
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 15px -10px;
+    }
+
+    .form-control::placeholder {
+        color: rgb(170, 170, 170);
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: rgb(16, 137, 211);
+        margin-top: 15px;
+        display: block;
+    }
+
+    /* Step Indicator */
+    .step-container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+
+    .step-indicator {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .step-indicator::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #e0e0e0;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    .step {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #757575;
+        position: relative;
+        z-index: 2;
+        transition: all 0.3s ease;
+    }
+
+    .step.active {
+        background: #0288d1;
+        border-color: #0288d1;
+        color: white;
+        box-shadow: 0 0 0 5px rgba(2, 136, 209, 0.2);
+    }
+
+    .step-title {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: #757575;
+        white-space: nowrap;
+    }
+
+    .step.active .step-title {
+        color: #0288d1;
+        font-weight: bold;
+    }
+
+    /* Image Upload */
+    .image-upload-container {
+        border: 5px solid white;
+        border-radius: 30px;
+        padding: 2rem;
+        text-align: center;
+        background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 20px -15px;
+    }
+
+    .image-upload-container:hover {
+        transform: translateY(-5px);
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 25px 25px -20px;
+    }
+
+    .image-upload-container i {
+        font-size: 3rem;
+        color: rgb(16, 137, 211);
+        margin-bottom: 1rem;
+    }
+
+    .preview-image {
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 20px;
+        margin: 0.5rem;
+        border: 5px solid white;
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 12px 10px -8px;
+        transition: transform 0.3s ease;
+    }
+
+    .preview-image:hover {
+        transform: scale(1.05);
+    }
+
+    /* Buttons */
+    .btn {
+        display: block;
+        width: 100%;
+        font-weight: bold;
+        background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
+        color: white;
+        padding: 15px;
+        margin: 20px auto;
+        border-radius: 20px;
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
+        border: none;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+        transform: scale(1.03);
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
+    }
+
+    .btn:active {
+        transform: scale(0.95);
+        box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
+    }
+
+    .btn-secondary {
+        background: linear-gradient(45deg, rgb(112, 112, 112) 0%, rgb(170, 170, 170) 100%);
+    }
+
+    /* Review Section */
+    .review-item {
+        background: white;
+        border-radius: 20px;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        box-shadow: #cff0ff 0px 10px 10px -5px;
+        border: 5px solid white;
+    }
+
+    .review-item strong {
+        color: rgb(16, 137, 211);
+        display: inline-block;
+        min-width: 120px;
+        font-weight: 900;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            margin: 10px;
+            padding: 15px 20px;
+            border-radius: 30px;
+        }
+
+        .form-section {
+            padding: 1.5rem;
+        }
+
+        .step-indicator {
+            padding: 0;
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+        }
+
+        .step::after {
+            font-size: 0.8rem;
+        }
+
+        .btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-section {
+        animation: fadeIn 0.5s ease forwards;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="step-container">
+        <div class="step-indicator">
+            <div class="step active">
+                1
+                <span class="step-title">Product Details</span>
+            </div>
+            <div class="step">
+                2
+                <span class="step-title">Images</span>
+            </div>
+            <div class="step">
+                3
+                <span class="step-title">Review</span>
+            </div>
+        </div>
+            </div>
+            
+    <form method="POST" enctype="multipart/form-data" id="sellProductForm">
+                {% csrf_token %}
+                
+        <!-- Step 1: Product Details -->
+        <div class="form-section" id="productDetails">
+            <h3>Product Details</h3>
+            <div class="mb-3">
+                <label for="itemName" class="form-label">Item Name*</label>
+                <input type="text" class="form-control" id="itemName" name="product_name" required>
+                </div>
+                
+            <div class="mb-3">
+                <label for="category" class="form-label">Category*</label>
+                <select class="form-select" id="category" name="product_category" required>
+                    <option value="">Select a category</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Study">Study</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Tools">Tools</option>
+                    <option value="Others">Others</option>
+                    </select>
+                </div>
+                
+            <div class="mb-3">
+                <label for="description" class="form-label">Description*</label>
+                <textarea class="form-control" id="description" name="product_description" rows="4" required></textarea>
+                </div>
+                
+            <div class="mb-3">
+                <label for="price" class="form-label">Price (₹)*</label>
+                <input type="number" class="form-control" id="price" name="price" min="0" step="1" required>
+                </div>
+                
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" onclick="nextStep(1)">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </div>
+                
+        <!-- Step 2: Images -->
+        <div class="form-section d-none" id="imageUpload">
+            <h3>Upload Images</h3>
+            <div class="mb-3">
+                <div class="image-upload-container" onclick="document.getElementById('images').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p class="mb-0">Click to upload or drag and drop</p>
+                    <p class="text-muted small">Supported formats: JPG, PNG</p>
+                    <input type="file" class="form-control d-none" id="images" name="photo" accept="image/*" required>
+                </div>
+                <div id="imagePreview" class="d-flex flex-wrap mt-3"></div>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next <i class="fas fa-arrow-right ms-2"></i></button>
+            </div>
+        </div>
+        
+        <!-- Step 3: Review -->
+        <div class="form-section d-none" id="review">
+            <h3>Review Your Listing</h3>
+            <div id="reviewContent">
+                <!-- Will be populated by JavaScript -->
+    </div>
+    
+            <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-check me-2"></i> List Item</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+function nextStep(currentStep) {
+    if (currentStep === 1) {
+        if (!validateStep1()) return;
+        document.getElementById('productDetails').classList.add('d-none');
+        document.getElementById('imageUpload').classList.remove('d-none');
+        document.getElementById('step2').classList.add('active');
+    } else if (currentStep === 2) {
+        if (!validateStep2()) return;
+        document.getElementById('imageUpload').classList.add('d-none');
+        document.getElementById('review').classList.remove('d-none');
+        document.getElementById('step3').classList.add('active');
+        populateReview();
+    }
+}
+
+function prevStep(currentStep) {
+    if (currentStep === 2) {
+        document.getElementById('imageUpload').classList.add('d-none');
+        document.getElementById('productDetails').classList.remove('d-none');
+        document.getElementById('step2').classList.remove('active');
+    } else if (currentStep === 3) {
+        document.getElementById('review').classList.add('d-none');
+        document.getElementById('imageUpload').classList.remove('d-none');
+        document.getElementById('step3').classList.remove('active');
+    }
+}
+
+function validateStep1() {
+    const required = ['itemName', 'category', 'description', 'price'];
+    for (let id of required) {
+        const element = document.getElementById(id);
+        if (!element.value) {
+            Swal.fire({
+                title: 'Required Field',
+                text: `Please fill in the ${element.name.replace('_', ' ')}`,
+                icon: 'warning',
+                confirmButtonColor: '#4e73df'
+            });
+            element.focus();
+            return false;
+        }
+    }
+    return true;
+}
+
+function validateStep2() {
+    const images = document.getElementById('images');
+    if (images.files.length === 0) {
+        Swal.fire({
+            title: 'Images Required',
+            text: 'Please upload at least one image',
+            icon: 'warning',
+            confirmButtonColor: '#4e73df'
+        });
+        return false;
+    }
+    return true;
+}
+
+function populateReview() {
+    const reviewContent = document.getElementById('reviewContent');
+    reviewContent.innerHTML = `
+        <div class="review-item">
+            <strong>Item Name:</strong> ${document.getElementById('itemName').value}
+        </div>
+        <div class="review-item">
+            <strong>Category:</strong> ${document.getElementById('category').value}
+        </div>
+        <div class="review-item">
+            <strong>Price:</strong> ₹${document.getElementById('price').value}
+        </div>
+        <div class="review-item">
+            <strong>Description:</strong><br>
+            ${document.getElementById('description').value}
+        </div>
+        <div class="review-item">
+            <strong>Images:</strong>
+            <div id="reviewImages" class="d-flex flex-wrap mt-2"></div>
+        </div>
+    `;
+    
+    // Display image previews
+    const images = document.getElementById('images').files;
+    const reviewImages = document.getElementById('reviewImages');
+    for (let image of images) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('preview-image');
+            reviewImages.appendChild(img);
+        }
+        reader.readAsDataURL(image);
+    }
+}
+
+// Image preview on upload
+document.getElementById('images').addEventListener('change', function(e) {
+    const preview = document.getElementById('imagePreview');
+    preview.innerHTML = '';
+    for (let file of this.files) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('preview-image');
+            preview.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Form submission with loading state
+document.getElementById('sellProductForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Listing...';
+    submitBtn.disabled = true;
+    
+    const formData = new FormData(this);
+    
+    fetch('{% url "upload_item" %}', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (response.redirected) {
+            window.location.href = response.url;
+            return;
+        }
+        return response.text().then(text => {
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                // If the response is not JSON, it might be a redirect or error page
+                if (text.includes('buysell_home')) {
+                    window.location.href = '{% url "buysell_home" %}';
+                    return;
+                }
+                throw new Error('Invalid response format');
+            }
+        });
+    })
+    .then(data => {
+        if (data && data.success) {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Your item has been listed successfully',
+                icon: 'success',
+                confirmButtonColor: '#4e73df'
+            }).then(() => {
+                window.location.href = '{% url "buysell_home" %}';
+            });
+        } else if (data && data.message) {
+            Swal.fire({
+                title: 'Error',
+                text: data.message,
+                icon: 'error',
+                confirmButtonColor: '#4e73df'
+            });
+        } else {
+            // If we get here, it means the response was not handled by the above conditions
+            window.location.href = '{% url "buysell_home" %}';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Even if there's an error, if it's actually successful, redirect
+        if (document.cookie.includes('messages')) {
+            window.location.href = '{% url "buysell_home" %}';
+            return;
+        }
+        Swal.fire({
+            title: 'Error',
+            text: 'An error occurred while listing your item. Please try again.',
+            icon: 'error',
+            confirmButtonColor: '#4e73df'
+        });
+    })
+    .finally(() => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
+});
+
+// Drag and drop functionality
+const dropZone = document.querySelector('.image-upload-container');
+
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+
+['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, highlight, false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, unhighlight, false);
+});
+
+function highlight(e) {
+    dropZone.classList.add('border-primary');
+}
+
+function unhighlight(e) {
+    dropZone.classList.remove('border-primary');
+}
+
+dropZone.addEventListener('drop', handleDrop, false);
+
+function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    document.getElementById('images').files = files;
+    handleFiles(files);
+}
+
+function handleFiles(files) {
+    const preview = document.getElementById('imagePreview');
+    preview.innerHTML = '';
+    [...files].forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('preview-image');
+            preview.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+    });
+}
+    </script>
+{% endblock %}

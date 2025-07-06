@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Student Feedbacks</h2>
+    
+    {% if feedbacks %}
+        <div class="row">
+            {% for feedback in feedbacks %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title">
+                                    {% if feedback.is_anonymous %}
+                                        Anonymous Student
+                                    {% else %}
+                                        {{ feedback.user.username }}
+                                    {% endif %}
+                                </h5>
+                                <div class="rating">
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= feedback.rating %}
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% else %}
+                                            <i class="far fa-star text-warning"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <p class="card-text">{{ feedback.feedback_text }}</p>
+                            <small class="text-muted">{{ feedback.created_at|date:"F d, Y" }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No feedbacks available yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

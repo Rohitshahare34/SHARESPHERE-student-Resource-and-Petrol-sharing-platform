@@ -1,0 +1,183 @@
+{% extends 'ridemate_home.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="offer-ride-form-container">
+        <h2 class="text-center mb-4">Offer a Ride</h2>
+        
+        {% if messages %}
+        <div class="messages mb-4">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" class="offer-ride-form" id="offerRideForm">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="contact" class="form-label">Contact Number</label>
+                    <input type="tel" class="form-control" id="contact" name="contact" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="pickup_location" class="form-label">From</label>
+                    <input type="text" class="form-control" id="pickup_location" name="pickup_location" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="destination" class="form-label">To</label>
+                    <input type="text" class="form-control" id="destination" name="destination" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="ride_date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="ride_date" name="ride_date" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ride_time" class="form-label">Time</label>
+                    <input type="time" class="form-control" id="ride_time" name="ride_time" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="seats" class="form-label">Available Seats</label>
+                    <input type="number" class="form-control" id="seats" name="seats" min="1" max="4" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="price_per_seat" class="form-label">Price per Seat (₹)</label>
+                    <input type="number" class="form-control" id="price_per_seat" name="price_per_seat" min="0" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="vehicle_number" class="form-label">Vehicle Number</label>
+                    <input type="text" class="form-control" id="vehicle_number" name="vehicle_number" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="gender_preference" class="form-label">Gender Preference</label>
+                    <select class="form-control" id="gender_preference" name="gender_preference">
+                        <option value="any">Any</option>
+                        <option value="male">Male Only</option>
+                        <option value="female">Female Only</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="expiry_hours" class="form-label">Listing Duration</label>
+                    <select class="form-control" id="expiry_hours" name="expiry_hours">
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="1">1 hour</option>
+                        <option value="2" selected>2 hours</option>
+                        <option value="3">3 hours</option>
+                        <option value="4">4 hours</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="additional_notes" class="form-label">Additional Notes</label>
+                <textarea class="form-control" id="additional_notes" name="additional_notes" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Offer Ride</button>
+        </form>
+    </div>
+</div>
+
+<style>
+.offer-ride-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.offer-ride-form {
+    margin-top: 20px;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.15);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 12px 24px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.alert {
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .offer-ride-form-container {
+        padding: 20px;
+        margin: 15px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set minimum date to today
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('ride_date').setAttribute('min', today);
+});
+</script>
+{% endblock %} 

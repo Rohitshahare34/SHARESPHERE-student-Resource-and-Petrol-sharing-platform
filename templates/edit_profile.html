@@ -1,0 +1,882 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - ShareSphere</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --success-color: #4cc9f0;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --border-color: #e9ecef;
+            --card-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Modern Color Scheme */
+            --gradient-primary: linear-gradient(135deg, #4361ee, #4895ef);
+            --gradient-secondary: linear-gradient(135deg, #3f37c9, #4cc9f0);
+            --gradient-accent: linear-gradient(135deg, #4895ef, #4cc9f0);
+            --gradient-success: linear-gradient(135deg, #4cc9f0, #4361ee);
+            
+            /* Shadow Variables */
+            --shadow-sm: 0 2px 8px rgba(67, 97, 238, 0.1);
+            --shadow-md: 0 4px 16px rgba(67, 97, 238, 0.15);
+            --shadow-lg: 0 8px 24px rgba(67, 97, 238, 0.2);
+            --shadow-xl: 0 12px 32px rgba(67, 97, 238, 0.25);
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 30px;
+            
+            /* Animation Durations */
+            --duration-fast: 0.2s;
+            --duration-normal: 0.3s;
+            --duration-slow: 0.5s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px; /* Space for fixed header */
+            background: 
+                linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(72, 149, 239, 0.05)),
+                radial-gradient(circle at top right, rgba(67, 97, 238, 0.1), transparent 50%),
+                radial-gradient(circle at bottom left, rgba(72, 149, 239, 0.1), transparent 50%);
+        }
+
+        /* Fixed Header Navigation */
+        .header-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(67, 97, 238, 0.1);
+        }
+
+        .header-nav .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-xl);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-nav .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+        }
+
+        .header-nav .btn-secondary {
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .header-nav .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-nav .btn:hover i {
+            transform: translateX(5px) rotate(5deg);
+        }
+
+        .header-nav .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: btnShine 1.5s infinite;
+        }
+
+        @keyframes btnShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Form Card Styles */
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(67, 97, 238, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .form-card:hover::before {
+            opacity: 1;
+        }
+
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Header Styles */
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .form-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .form-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .form-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Form Group Styles */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+            animation: fadeInLeft 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+        .form-group:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .form-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 5px;
+            height: 5px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+            transform: translateX(10px);
+        }
+
+        .form-control:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
+        }
+
+        .form-control[readonly] {
+            background-color: var(--bg-primary);
+            cursor: default;
+            opacity: 0.8;
+        }
+
+        /* Profile Picture Styles */
+        .profile-picture-container {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-picture-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            z-index: 0;
+            opacity: 0.5;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.3; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.3);
+        }
+
+        .profile-picture-upload {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .profile-picture-upload label {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-picture-upload label:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-picture-upload input[type="file"] {
+            display: none;
+        }
+
+        /* Password Change Section */
+        .password-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .password-section::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+        }
+
+        .password-section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .password-section h3 i {
+            color: var(--primary-color);
+        }
+
+        /* Form Submit Section */
+        .form-submit-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn.primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .submit-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .submit-btn.secondary {
+            background: #ffffff;
+            border: 2px solid #4361ee;
+            color: #4361ee;
+        }
+
+        .submit-btn.secondary:hover {
+            background: #4361ee;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: btnShine 1.5s infinite;
+        }
+
+        /* Alert Styles */
+        .alert {
+            border-radius: var(--radius-md);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border: none;
+            box-shadow: var(--shadow-sm);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(72, 187, 120, 0.2));
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.2));
+            color: #c62828;
+            border-left: 4px solid #c62828;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-nav {
+                padding: 10px 15px;
+            }
+
+            .header-nav .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+
+            .form-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .form-submit-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Animation for form elements */
+        .form-row {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .form-row:nth-child(1) { animation-delay: 0.1s; }
+        .form-row:nth-child(2) { animation-delay: 0.2s; }
+        .form-row:nth-child(3) { animation-delay: 0.3s; }
+        .form-row:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Enhanced hover effects for form controls */
+        .form-control {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+            transform: translateX(10px);
+        }
+
+        .form-control:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
+        }
+
+        /* Enhanced hover effects for select elements */
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234361ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        select.form-control:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        /* Enhanced hover effects for file input */
+        .profile-picture-upload label {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-picture-upload label::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: btnShine 1.5s infinite;
+        }
+
+        /* Enhanced hover effects for password section */
+        .password-section:hover::before {
+            width: 200px;
+            transition: width 0.5s ease;
+        }
+
+        .password-section:hover h3 {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .password-section:hover h3 i {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Enhanced hover effects for form submit section */
+        .form-submit-section:hover::before {
+            width: 200px;
+            transition: width 0.5s ease;
+        }
+
+        /* Enhanced hover effects for alert messages */
+        .alert {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: alertShine 2s infinite;
+        }
+
+        @keyframes alertShine {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Enhanced hover effects for form header */
+        .form-header:hover h2::after {
+            width: 120px;
+            transition: width 0.3s ease;
+        }
+
+        .form-header:hover h2 {
+            color: var(--primary-color);
+        }
+
+        /* Enhanced hover effects for form card */
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .form-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Enhanced hover effects for profile picture */
+        .profile-picture-container:hover .profile-picture {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.3);
+        }
+
+        .profile-picture-container:hover::before {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Enhanced hover effects for form labels */
+        .form-label:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .form-label:hover::before {
+            transform: translateY(-50%) scale(1.2);
+            background: var(--gradient-primary);
+        }
+
+        /* Enhanced hover effects for submit buttons */
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .submit-btn:hover i {
+            transform: translateX(5px) rotate(5deg);
+        }
+
+        /* Enhanced hover effects for form rows */
+        .form-row:hover .form-control {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
+        }
+
+        /* Enhanced hover effects for password fields */
+        .password-section .form-control:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
+        }
+
+        .password-section .form-control:focus {
+            transform: translateX(10px);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+        }
+
+        /* Enhanced hover effects for profile picture upload */
+        .profile-picture-upload label:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-picture-upload label:hover i {
+            transform: translateX(5px) rotate(5deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header Navigation -->
+    <div class="header-nav">
+        <a href="{% url 'profile' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i>
+            Back to Profile
+        </a>
+        <button type="submit" form="profile-form" class="btn btn-primary">
+            <i class="fas fa-save"></i>
+            Update Profile
+            </button>
+    </div>
+
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <h2>Edit Profile</h2>
+                <p>Update your personal information and profile settings</p>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+        </div>
+                {% endfor %}
+            {% endif %}
+
+            <form id="profile-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+                <div class="profile-picture-container">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+                    {% else %}
+                        <img src="{% static 'profile_pic.jpg' %}" alt="Profile Picture" class="profile-picture">
+                    {% endif %}
+                    <div class="profile-picture-upload">
+                        <label for="id_profile_picture">
+                            <i class="fas fa-camera"></i> Change Profile Picture
+                        </label>
+                        <input type="file" name="profile_picture" id="id_profile_picture" accept="image/*">
+                    </div>
+            </div>
+            
+                <div class="row form-row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="id_name" class="form-label">Full Name</label>
+                            <input type="text" name="name" id="id_name" class="form-control" value="{{ user.name }}" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="id_department_name" class="form-label">Department/Branch</label>
+                            <input type="text" name="department_name" id="id_department_name" class="form-control" value="{{ user.department_name }}" required>
+                    </div>
+                </div>
+            </div>
+            
+                <div class="row form-row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="id_email" class="form-label">Email Address</label>
+                            <input type="email" name="email" id="id_email" class="form-control" value="{{ user.email }}" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="id_contact_number" class="form-label">Contact Number</label>
+                            <input type="tel" name="contact_number" id="id_contact_number" class="form-control" value="{{ user.contact_number }}" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="id_usn" class="form-label">USN</label>
+                            <input type="text" name="usn" id="id_usn" class="form-control" value="{{ user.usn }}" readonly>
+                </div>
+            </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="id_year" class="form-label">Year</label>
+                            <select name="year" id="id_year" class="form-control" required>
+                                <option value="1" {% if user.year == 1 %}selected{% endif %}>1st Year</option>
+                                <option value="2" {% if user.year == 2 %}selected{% endif %}>2nd Year</option>
+                                <option value="3" {% if user.year == 3 %}selected{% endif %}>3rd Year</option>
+                                <option value="4" {% if user.year == 4 %}selected{% endif %}>4th Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                            <label for="id_semester" class="form-label">Semester</label>
+                            <select name="semester" id="id_semester" class="form-control" required>
+                                <option value="1" {% if user.semester == 1 %}selected{% endif %}>1st Semester</option>
+                                <option value="2" {% if user.semester == 2 %}selected{% endif %}>2nd Semester</option>
+                                <option value="3" {% if user.semester == 3 %}selected{% endif %}>3rd Semester</option>
+                                <option value="4" {% if user.semester == 4 %}selected{% endif %}>4th Semester</option>
+                                <option value="5" {% if user.semester == 5 %}selected{% endif %}>5th Semester</option>
+                                <option value="6" {% if user.semester == 6 %}selected{% endif %}>6th Semester</option>
+                                <option value="7" {% if user.semester == 7 %}selected{% endif %}>7th Semester</option>
+                                <option value="8" {% if user.semester == 8 %}selected{% endif %}>8th Semester</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="password-section">
+                    <h3><i class="fas fa-lock"></i> Change Password</h3>
+                    <p class="text-muted mb-4">Leave these fields blank if you don't want to change your password</p>
+                    
+                    <div class="row form-row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="id_current_password" class="form-label">Current Password</label>
+                                <input type="password" name="current_password" id="id_current_password" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+                    <div class="row form-row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                                <label for="id_new_password" class="form-label">New Password</label>
+                                <input type="password" name="new_password" id="id_new_password" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                                <label for="id_confirm_password" class="form-label">Confirm New Password</label>
+                                <input type="password" name="confirm_password" id="id_confirm_password" class="form-control">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="form-submit-section">
+                    <button type="submit" class="submit-btn primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <a href="{% url 'profile' %}" class="submit-btn secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <script>
+        // Preview profile picture before upload
+        document.getElementById('id_profile_picture').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('.profile-picture').src = e.target.result;
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Form validation
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            const newPassword = document.getElementById('id_new_password').value;
+            const confirmPassword = document.getElementById('id_confirm_password').value;
+            
+            if (newPassword && newPassword !== confirmPassword) {
+                e.preventDefault();
+                alert('New passwords do not match!');
+            }
+        });
+    </script>
+</body>
+</html> 

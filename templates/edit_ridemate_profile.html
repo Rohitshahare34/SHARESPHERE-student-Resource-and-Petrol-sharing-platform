@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit RideMate Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="m-0"><i class="fas fa-user-edit"></i> Edit RideMate Profile</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        {% if messages %}
+                        <div class="alert alert-success">
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-12 text-center mb-4">
+                                {% if profile.profile_picture %}
+                                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle profile-img" style="width: 150px; height: 150px; object-fit: cover;">
+                                {% else %}
+                                    <div class="profile-placeholder rounded-circle d-flex align-items-center justify-content-center" style="width: 150px; height: 150px; background: linear-gradient(135deg, #4e73df, #224abe); color: white; font-size: 48px; margin: 0 auto;">
+                                        {{ user.username|slice:":1"|upper }}
+                                    </div>
+                                {% endif %}
+                                <div class="mt-3">
+                                    <label for="profile_picture" class="form-label">Change Profile Picture</label>
+                                    <input type="file" class="form-control" id="profile_picture" name="profile_picture">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mb-3 border-bottom pb-2"><i class="fas fa-user"></i> Personal Information</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="first_name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone_number" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ profile.phone_number }}">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label for="bio" class="form-label">Bio</label>
+                                <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Tell others about yourself...">{{ profile.bio }}</textarea>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mb-3 border-bottom pb-2"><i class="fas fa-car"></i> Vehicle & Ride Information</h5>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="is_driver" name="is_driver" {% if profile.is_driver %}checked{% endif %}>
+                            <label class="form-check-label" for="is_driver">I offer rides (I'm a driver)</label>
+                        </div>
+                        
+                        <div class="row mb-3" id="driver-fields">
+                            <div class="col-md-6">
+                                <label for="vehicle_number" class="form-label">Vehicle Number</label>
+                                <input type="text" class="form-control" id="vehicle_number" name="vehicle_number" value="{{ profile.vehicle_number }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="vehicle_type" class="form-label">Vehicle Type</label>
+                                <input type="text" class="form-control" id="vehicle_type" name="vehicle_type" placeholder="e.g. Scooter, Motorcycle, Car" value="{{ profile.vehicle_type }}">
+                            </div>
+                        </div>
+                        
+                        <h5 class="mb-3 border-bottom pb-2"><i class="fas fa-map-marker-alt"></i> Location Preferences</h5>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="preferred_pickup_locations" class="form-label">Preferred Pickup Locations</label>
+                                <input type="text" class="form-control" id="preferred_pickup_locations" name="preferred_pickup_locations" placeholder="e.g. College Gate, Hostel, Library" value="{{ profile.preferred_pickup_locations }}">
+                                <small class="form-text text-muted">Separate multiple locations with commas</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="preferred_destinations" class="form-label">Preferred Destinations</label>
+                                <input type="text" class="form-control" id="preferred_destinations" name="preferred_destinations" placeholder="e.g. Railway Station, Bus Stand, Mall" value="{{ profile.preferred_destinations }}">
+                                <small class="form-text text-muted">Separate multiple destinations with commas</small>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary px-4">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                                <a href="{% url 'ridemate_profile' %}" class="btn btn-outline-secondary px-4 ms-2">
+                                    <i class="fas fa-arrow-left"></i> Back to Profile
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const isDriverCheckbox = document.getElementById('is_driver');
+        const driverFields = document.getElementById('driver-fields');
+        
+        function toggleDriverFields() {
+            if (isDriverCheckbox.checked) {
+                driverFields.style.display = 'flex';
+            } else {
+                driverFields.style.display = 'none';
+            }
+        }
+        
+        // Initial toggle
+        toggleDriverFields();
+        
+        // Event listener
+        isDriverCheckbox.addEventListener('change', toggleDriverFields);
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,261 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareSphere - RideMate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 2rem;
+        }
+        
+        .ridemate-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .ridemate-header {
+            background: linear-gradient(135deg, #1e2b3c, #4e73df);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .ridemate-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .ridemate-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #4e73df, #1e2b3c);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .placeholder-section {
+            background: white;
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4e73df;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-ridemate {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: #4e73df;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #3a5fcc;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="ridemate-container">
+        <div class="ridemate-header">
+            <h1 class="ridemate-title">RideMate</h1>
+            <p class="ridemate-subtitle">Share rides with your campus community</p>
+        </div>
+        
+        <div class="placeholder-section">
+            <h2>RideMate Features</h2>
+            <p>This is a demonstration of the ShareSphere RideMate platform. The original ride-sharing functionality has been removed for demonstration purposes.</p>
+      </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-car"></i>
+            </div>
+                <h3 class="feature-title">Offer a Ride</h3>
+                <p class="feature-description">Share your vehicle and earn while helping others reach their destination safely.</p>
+                            </div>
+                            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-search"></i>
+                            </div>
+                <h3 class="feature-title">Find a Ride</h3>
+                <p class="feature-description">Search for available rides to your destination and book seats in advance.</p>
+        </div>
+        
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+            </div>
+                <h3 class="feature-title">Route Planning</h3>
+                <p class="feature-description">Plan your route and find the most convenient pickup and drop-off points.</p>
+                </div>
+                
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                        </div>
+                <h3 class="feature-title">Safe Travel</h3>
+                <p class="feature-description">Travel with verified students and enjoy a safe, comfortable journey.</p>
+                    </div>
+                </div>
+                
+        <div class="placeholder-section">
+            <h3>Current Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Active Drivers</div>
+                            </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Rides Completed</div>
+                        </div>
+                <div class="stat-card">
+                    <div class="stat-number">4.8</div>
+                    <div class="stat-label">Average Rating</div>
+                    </div>
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Safety Score</div>
+                        </div>
+                    </div>
+                </div>
+                
+        <div class="placeholder-section">
+            <h3>How It Works</h3>
+            <p>1. Create your RideMate profile and verify your student identity</p>
+            <p>2. Offer rides or search for available rides to your destination</p>
+            <p>3. Connect with fellow students and coordinate pickup times</p>
+            <p>4. Enjoy safe, affordable travel while building campus connections</p>
+                </div>
+                
+        <div class="action-buttons">
+            <a href="#" class="btn btn-ridemate btn-primary">
+                <i class="fas fa-plus"></i> Offer a Ride
+            </a>
+            <a href="#" class="btn btn-ridemate btn-secondary">
+                <i class="fas fa-search"></i> Find a Ride
+            </a>
+            <a href="#" class="btn btn-ridemate btn-secondary">
+                <i class="fas fa-user"></i> My Profile
+            </a>
+                    </div>
+                </div>
+                
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
