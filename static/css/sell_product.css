@@ -1,0 +1,247 @@
+:root {
+    --primary-color: #1e2b3c;
+    --secondary-color: #4e73df;
+    --accent-color: #36b37e;
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+    --dark-bg: #212529;
+    --card-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    --hover-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    --border-radius: 12px;
+    --input-bg: #f9f9f9;
+    --form-bg: white;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--light-bg);
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.page-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.sell-container {
+    background: var(--form-bg);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sell-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--accent-color), var(--secondary-color));
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+.sell-header {
+    margin-bottom: 30px;
+}
+
+.sell-header h1 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.sell-header p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: var(--input-bg);
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234e73df' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px;
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.file-upload {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    background-color: var(--input-bg);
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    color: #666;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.file-upload-label:hover, 
+.file-upload input[type="file"]:focus + .file-upload-label {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.file-upload-label i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.file-name {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    display: none;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    max-width: 250px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(78, 115, 223, 0.25);
+    display: inline-block;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(78, 115, 223, 0.35);
+}
+
+.price-input-container {
+    position: relative;
+}
+
+.price-input-container::before {
+    content: '₹';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-weight: 600;
+}
+
+.price-input-container input {
+    padding-left: 30px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sell-container {
+        padding: 30px 20px;
+        border-radius: 10px;
+    }
+    
+    .sell-header h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sell-container {
+        padding: 25px 15px;
+    }
+    
+    .sell-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .btn-submit {
+        width: 100%;
+    }
+} 

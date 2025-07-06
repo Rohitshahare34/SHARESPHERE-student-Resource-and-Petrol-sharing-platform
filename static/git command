@@ -1,0 +1,25 @@
+#to upload the change made by yourself
+
+git status
+git add .
+git commit -m "add comment"
+git push origin main
+
+# to get the latest updates made by others
+
+# method 1:
+
+git status
+git pull origin main 
+
+# method 2:
+
+git status
+git add .
+git commit -m "Add commentss"
+git push origin main
+git pull origin main
+
+follow this command to get updates
+
+
