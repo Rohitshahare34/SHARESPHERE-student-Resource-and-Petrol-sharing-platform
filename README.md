@@ -11,7 +11,16 @@
 **ShareSphere** is a Django-based campus marketplace platform that enables students to buy, sell, and share resources within their academic community. The platform includes a marketplace for items and a ride-sharing system called RideMate.
 
 ## ✨ Key Features
+🔑 Login & Signup
+Secure registration for new users
 
+Email and password validation
+
+Password hashing and secure storage
+
+Login/logout functionality
+
+Session-based authentication
 ### 🛒 Buy & Sell Marketplace
 - Product listings with categories (books, electronics, furniture)
 - Search and filter functionality
