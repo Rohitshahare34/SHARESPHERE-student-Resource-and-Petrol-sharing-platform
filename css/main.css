@@ -1,0 +1,219 @@
+/* Your existing CSS styles (not profile-related) can remain here */
+
+/* Profile Page Styles */
+.profile-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    position: relative;
+}
+
+.profile-header {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.profile-pic-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background-color: #f0f4f8;
+    transition: all 0.3s ease;
+}
+
+.edit-profile-pic {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-profile-pic:hover {
+    transform: scale(1.1);
+    background-color: var(--accent-color);
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.profile-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 30px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #777;
+}
+
+.profile-info {
+    background-color: #f9fafc;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    min-width: 150px;
+    font-weight: 600;
+    color: #555;
+}
+
+.info-value {
+    flex: 1;
+}
+
+.profile-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-edit-profile {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s;
+    margin-right: 10px;
+}
+
+.btn-edit-profile:hover {
+    background-color: #3a64cf;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* Edit profile form */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 15px;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.1);
+}
+
+.upload-hint {
+    display: block;
+    margin-top: 5px;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.file-preview {
+    margin-top: 10px;
+    max-width: 100px;
+    border-radius: 5px;
+    display: none;
+}
+
+/* Hide the default file input */
+.custom-file-input {
+    display: none;
+}
+
+.custom-file-label {
+    display: inline-block;
+    background-color: #f0f4f8;
+    color: #444;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.custom-file-label:hover {
+    background-color: #e1e7f0;
+}
+
+.custom-file-label i {
+    margin-right: 8px;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .info-label {
+        margin-bottom: 5px;
+    }
+    
+    .profile-stats {
+        flex-wrap: wrap;
+    }
+} 
