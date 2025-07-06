@@ -145,12 +145,11 @@ DATABASES = {
 
 | Feature | Description |
 |---------|-------------|
-| ![loginpage](https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/9d9029172fef9db90418bc58b0db4b17b740ab3d/Screenshots/Screenshot%202025-07-06%20142439.png) | Main landing page |
-| ![sign up page ](https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/236494f98f13b3647670d2f41768c6c69822dd18/Screenshots/Screenshot%202025-07-06%20142456.png) | Main landing page |
-| ![Homepage](https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/236494f98f13b3647670d2f41768c6c69822dd18/Screenshots/Screenshot%202025-07-06%20141826.png,https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/236494f98f13b3647670d2f41768c6c69822dd18/Screenshots/Screenshot%202025-07-06%20142007.png) | Main landing page |
-| ![Buysellpage](https://via.placeholder.com/400x200/28a745/ffffff?text=Marketplace) | Buy & Sell interface |
-| ![RideMate](https://via.placeholder.com/400x200/f0ad4e/ffffff?text=RideMate) | Ride sharing system |
-| ![Profile](https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/236494f98f13b3647670d2f41768c6c69822dd18/Screenshots/Screenshot%202025-07-06%20142354.png) | User profile page |
+| <img src="https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/9d9029172fef9db90418bc58b0db4b17b740ab3d/Screenshots/Screenshot%202025-07-06%20142439.png" width="300"/> <img src="https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/236494f98f13b3647670d2f41768c6c69822dd18/Screenshots/Screenshot%202025-07-06%20142456.png" width="300"/> | Login and Signup pages |
+| <img src="https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/236494f98f13b3647670d2f41768c6c69822dd18/Screenshots/Screenshot%202025-07-06%20141826.png" width="600"/> | Main landing page |
+| <img src="https://via.placeholder.com/600x300/28a745/ffffff?text=Marketplace" width="600"/> | Buy & Sell interface |
+| <img src="https://via.placeholder.com/600x300/f0ad4e/ffffff?text=RideMate" width="600"/> | Ride sharing system |
+| <img src="https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/236494f98f13b3647670d2f41768c6c69822dd18/Screenshots/Screenshot%202025-07-06%20142354.png" width="600"/> | User profile page |
 
 ## 🤝 Contributing
 
