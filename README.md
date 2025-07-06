@@ -11,16 +11,14 @@
 **ShareSphere** is a Django-based campus marketplace platform that enables students to buy, sell, and share resources within their academic community. The platform includes a marketplace for items and a ride-sharing system called RideMate.
 
 ## ✨ Key Features
-🔑 Login & Signup
-Secure registration for new users
 
-Email and password validation
-
-Password hashing and secure storage
-
-Login/logout functionality
-
-Session-based authentication
+###🔑 Login & Signup
+- Secure registration for new users
+- Email and password validation
+- Password hashing and secure storage
+- Login/logout functionality
+- Session-based authentication
+  
 ### 🛒 Buy & Sell Marketplace
 - Product listings with categories (books, electronics, furniture)
 - Search and filter functionality
@@ -147,8 +145,10 @@ DATABASES = {
 
 | Feature | Description |
 |---------|-------------|
+| ![loginpage](https://github.com/Rohitshahare34/SHARESPHERE-student-Resource-and-Petrol-sharing-platform/blob/9d9029172fef9db90418bc58b0db4b17b740ab3d/Screenshots/Screenshot%202025-07-06%20142439.png) | Main landing page |
+| ![sign up page ](https://via.placeholder.com/400x200/4e73df/ffffff?text=Homepage) | Main landing page |
 | ![Homepage](https://via.placeholder.com/400x200/4e73df/ffffff?text=Homepage) | Main landing page |
-| ![Marketplace](https://via.placeholder.com/400x200/28a745/ffffff?text=Marketplace) | Buy & Sell interface |
+| ![Buysellpage](https://via.placeholder.com/400x200/28a745/ffffff?text=Marketplace) | Buy & Sell interface |
 | ![RideMate](https://via.placeholder.com/400x200/f0ad4e/ffffff?text=RideMate) | Ride sharing system |
 | ![Profile](https://via.placeholder.com/400x200/1e2b3c/ffffff?text=Profile) | User profile page |
 
